@@ -11,7 +11,7 @@ TagManager:
   - 4
   - Player1
   - Player2
-  - Collectable
+  - Collectible
   layers:
   - Default
   - TransparentFX

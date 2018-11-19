@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Collectibles : MonoBehaviour
 {
     [SerializeField]
-    Text CollectableText;
+    Text CollectibleText;
     [SerializeField]
     Text GotEverything;
 
@@ -15,25 +15,24 @@ public class Collectibles : MonoBehaviour
     int TotalObjects;
     int Score;
 
-    public float speed = 10f;
 
     // Use this for initialization
     private void Start()
     {
-        CollectableText.enabled = false;
+
+        CollectibleText.enabled = false;
         GotEverything.enabled = false;
-        TotalObjects = GameObject.FindGameObjectsWithTag("Collectable").Length;
+        TotalObjects = GameObject.FindGameObjectsWithTag("Collectible").Length;
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collectable");
-        if (other.tag == "Collectable")
+        if (other.tag == "Collectible")
         {
             CollectedObjects += 1;
             Score = CollectedObjects * 15;
             if (CollectedObjects <= TotalObjects)
             {
-                CollectableText.text = CollectedObjects.ToString() + " collected out of " + TotalObjects;
+                CollectibleText.text = CollectedObjects.ToString() + " collected out of " + TotalObjects;
                 StopAllCoroutines();
                 StartCoroutine(showText());
                 //When the collision triggers it adds 1 to the total value of the objects collected in the CollectedObjects integer and then displays a message to the player on screen.
@@ -51,25 +50,15 @@ public class Collectibles : MonoBehaviour
             }
         }
     }
-
     IEnumerator showText()
     {
-        CollectableText.enabled = true;
+        CollectibleText.enabled = true;
         yield return new WaitForSeconds(2);
-        CollectableText.enabled = false;
+        CollectibleText.enabled = false;
         yield return new WaitForSeconds(2);
         GotEverything.enabled = true;
         yield return new WaitForSeconds(2);
         GotEverything.enabled = false;
         //This just displays the text.
-    }
-    
-
-
-    void Update()
-    {
-       
-            transform.Rotate(Vector3.up * speed * Time.deltaTime, Space.World);
-        
     }
 }
